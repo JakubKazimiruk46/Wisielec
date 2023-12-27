@@ -184,7 +184,7 @@ void Menu_glowne(int poziom_trudnosci) {
 
 		cout << wisielec_ascii[proba] << endl;
 		cout << podpowiedz << endl;
-		cout << "Podaj litere: ";
+		cout << "Give me a letter: ";
 		cin >> odpowiedz;
 
 		if (ukryte_slowo.find(odpowiedz) != string::npos) {
@@ -197,7 +197,7 @@ void Menu_glowne(int poziom_trudnosci) {
 		}
 		if (ukryte_slowo == podpowiedz) {
 			cout << wisielec_ascii[proba] << endl;
-			cout << "Wygrales! Ukrytym slowem bylo: " << ukryte_slowo << endl;
+			cout << "You won! Hidden word was: " << ukryte_slowo << endl;
 			break;
 		}
 		else {
@@ -206,8 +206,8 @@ void Menu_glowne(int poziom_trudnosci) {
 		if (proba <= 0) {
 
 			cout << wisielec_ascii[proba] << endl;
-			cout << "Przegrales! Ukrytym slowem bylo: " << ukryte_slowo << endl;
-			cout << "Twoja odpowiedz to: " << podpowiedz << endl;
+			cout << "You lost! Hidden word was: " << ukryte_slowo << endl;
+			cout << "Your finall clue is: " << podpowiedz << endl;
 			break;
 
 		}
@@ -219,19 +219,23 @@ void Menu_glowne(int poziom_trudnosci) {
 int main(){
 
 	int poziom_trudnosci = 1;
+	srand(time(0));
 
 	while (true) {
 
 		cout << "Choose difficulty level: \n";
 		cout << "1. Easy (12 tries)" <<
 			"\n2. Medium (10 tries)" <<
-			"\n3. Hard (7 tries)";
-		cin >> poziom_trudnosci;
+			"\n3. Hard (7 tries)\n";
 
-		if (poziom_trudnosci > 3 || poziom_trudnosci < 1){
-			cout << "Wrong input!" << endl;
+		while (!(cin >> poziom_trudnosci))
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid input. Try again. " << endl;
+		}
+		if (poziom_trudnosci < 0 || poziom_trudnosci > 3)
 			continue;
-	}
 
 		Menu_glowne(poziom_trudnosci);
 	}
