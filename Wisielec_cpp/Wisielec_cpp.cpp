@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string wisielec_ascii[13] = {
+string ascii_art[13] = {
 "  +----+\n"
 "  |    |\n"
 "  O    |\n"
@@ -93,11 +93,11 @@ string wisielec_ascii[13] = {
 };
 
 
-string losuj_slowo(vector <string>& slowa) {
-	return slowa[rand() % slowa.size()];
+string generate_word(vector <string>& words) {
+	return words[rand() % words.size()];
 }
 
-vector<string> slowa = {
+vector<string> words = {
 		"programming", "language", "computer", "science", "algorithm",
 		"software", "developer", "engineering", "application", "internet",
 		"database", "framework", "interface", "hardware", "keyboard",
@@ -131,7 +131,7 @@ vector<string> slowa = {
 
 
 };
-vector<string> slowa_medium = {
+vector<string> words_medium = {
 	"hermit", "banjo", "sunset", "cousin", "plastic", "pocket", "whisper", "zigzag", "freight", "glasses", "keyboard",
 	"frozen", "giraffe", "package", "kitchen", "hamster", "silence", "mansion", "outside", "balloon", "victory", "monster",
 	"country", "quiver", "furniture", "quality", "envelope", "stomach", "against", "lemonade", "internet", "wilderness", "factory",
@@ -142,7 +142,7 @@ vector<string> slowa_medium = {
 	"triangle", "language", "treasure", "pajamas", "daughter", "cupboard", "apartment", "fireplace", "railroad", "spaghetti", "sunshine", "birthday",
 	"adventure", "landscape"
 };
-vector<string> slowa_hard = {
+vector<string> words_hard = {
 
 	"swift", "flower", "pizza", "dream", "planet", "jungle", "rocket", "guitar","orange", "puzzle","marble", "candle", "zephyr", "castle",
 	"basket", "honey", "jacket", "puppet", "banana", "bottle","pillow", "cookie", "cherry", "ticket", "kitten", "rocket",
@@ -155,59 +155,59 @@ vector<string> slowa_hard = {
 	"island", "puppet"
 };
 
-void Menu_glowne(int poziom_trudnosci) {
+void Main_menu(int difficulty_level) {
 
-	string ukryte_slowo;
-	//string podpowiedz = ukryte_slowo;
-	int proba;
-	if (poziom_trudnosci == 1) {
-		ukryte_slowo = losuj_slowo(slowa);
-		proba = 12;
+	string hidden_word;
+	//string clue = hidden_word;
+	int try_count;
+	if (difficulty_level == 1) {
+		hidden_word = generate_word(words);
+		try_count = 12;
 	}
-	else if (poziom_trudnosci == 2) {
-		ukryte_slowo = losuj_slowo(slowa_medium);
-		proba = 10;
+	else if (difficulty_level == 2) {
+		hidden_word = generate_word(words_medium);
+		try_count = 10;
 	}
-	else if (poziom_trudnosci == 3) {
-		ukryte_slowo = losuj_slowo(slowa_hard);
-		proba = 7;
+	else if (difficulty_level == 3) {
+		hidden_word = generate_word(words_hard);
+		try_count = 7;
 	}
-	char odpowiedz;
-	string podpowiedz = ukryte_slowo;
+	char user_answer;
+	string clue = hidden_word;
 
-	for (int i = 0; i < ukryte_slowo.length(); i++) {
+	for (int i = 0; i < hidden_word.length(); i++) {
 
-		podpowiedz[i] = '_';
+		clue[i] = '_';
 	}
 
 	while (true) {
 
-		cout << wisielec_ascii[proba] << endl;
-		cout << podpowiedz << endl;
+		cout << ascii_art[try_count] << endl;
+		cout << clue << endl;
 		cout << "Give me a letter: ";
-		cin >> odpowiedz;
+		cin >> user_answer;
 
-		if (ukryte_slowo.find(odpowiedz) != string::npos) {
+		if (hidden_word.find(user_answer) != string::npos) {
 
-			for (int i = 0; i < podpowiedz.length(); i++) {
-				if (ukryte_slowo[i] == odpowiedz)
-					podpowiedz[i] = odpowiedz;
+			for (int i = 0; i < clue.length(); i++) {
+				if (hidden_word[i] == user_answer)
+					clue[i] = user_answer;
 			}
 
 		}
-		if (ukryte_slowo == podpowiedz) {
-			cout << wisielec_ascii[proba] << endl;
-			cout << "You won! Hidden word was: " << ukryte_slowo << endl;
+		if (hidden_word == clue) {
+			cout << ascii_art[try_count] << endl;
+			cout << "You won! Hidden word was: " << hidden_word << endl;
 			break;
 		}
 		else {
-			proba--;
+			try_count--;
 		}
-		if (proba <= 0) {
+		if (try_count <= 0) {
 
-			cout << wisielec_ascii[proba] << endl;
-			cout << "You lost! Hidden word was: " << ukryte_slowo << endl;
-			cout << "Your finall clue is: " << podpowiedz << endl;
+			cout << ascii_art[try_count] << endl;
+			cout << "You lost! Hidden word was: " << hidden_word << endl;
+			cout << "Your finall clue is: " << clue << endl;
 			break;
 
 		}
@@ -218,25 +218,26 @@ void Menu_glowne(int poziom_trudnosci) {
 
 int main(){
 
-	int poziom_trudnosci = 1;
+	int difficulty_level = 1;
 	srand(time(0));
 
 	while (true) {
-
+		cout << "Simple hangman game, every word is in english, each difficulty level has different max word lenght\n";
+		cout << "By Jakub Kazimiruk\n\n";
 		cout << "Choose difficulty level: \n";
 		cout << "1. Easy (12 tries)" <<
 			"\n2. Medium (10 tries)" <<
 			"\n3. Hard (7 tries)\n";
 
-		while (!(cin >> poziom_trudnosci))
+		while (!(cin >> difficulty_level))
 		{
 			cin.clear();
 			cin.ignore(1000, '\n');
 			cout << "Invalid input. Try again. " << endl;
 		}
-		if (poziom_trudnosci < 0 || poziom_trudnosci > 3)
+		if (difficulty_level < 0 || difficulty_level > 3)
 			continue;
 
-		Menu_glowne(poziom_trudnosci);
+		Main_menu(difficulty_level);
 	}
 }
