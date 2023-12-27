@@ -38,33 +38,52 @@ string wisielec_ascii[7] = {
 "  +----+\n"
 "  |    |\n"
 "  O    |\n"
-" /|\   |\n"
+" /|\\   |\n"
 "       |\n"
 "       |\n"
 "========\n",
 "  +----+\n"
 "  |    |\n"
 "  O    |\n"
-" /|\   |\n"
+" /|\\   |\n"
 " /     |\n"
 "       |\n"
 "========\n",
 "  +----+\n"
 "  |    |\n"
 "  O    |\n"
-" /|\   |\n"
-" / \   |\n"
+" /|\\   |\n"
+" / \\   |\n"
 "       |\n"
 "========\n"
 };
 
 string losuj_slowo(vector <string>& slowa) {
-
 	return slowa[rand() % slowa.size()];
-
 }
 
-vector<string> slowa = { "komputer", "żyletka" };
+vector<string> slowa = {
+		"programming", "language", "computer", "science", "algorithm",
+		"software", "developer", "engineering", "application", "internet",
+		"database", "framework", "interface", "hardware", "keyboard",
+		"mouse", "monitor", "network", "security", "operating",
+		"variable", "function", "iteration", "conditional", "loop",
+		"pointer", "memory", "binary", "decimal", "hexadecimal",
+		"concatenate", "substring", "manipulation", "validation", "iteration",
+		"recursion", "inheritance", "polymorphism", "encapsulation", "abstraction",
+		"library", "compilation", "debugging", "optimization", "declaration",
+		"definition", "expression", "statement", "constant", "class",
+		"object", "constructor", "destructor", "inheritance", "template",
+		"namespace", "vector", "array", "linked", "list",
+		"queue", "stack", "tree", "graph", "search",
+		"sort", "insertion", "bubble", "selection", "merge",
+		"quick", "linear", "binary", "hash", "algorithm",
+		"search", "sort", "recursion", "iteration", "loop",
+		"function", "variable", "pointer", "reference", "memory",
+		"dynamic", "static", "operator", "overloading", "template",
+		"STL", "template", "lambda", "expression", "constructor",
+		"destructor", "operator", "friend", "virtual", "inheritance"
+};
 
 void Menu_glowne() {
 
@@ -101,7 +120,7 @@ void Menu_glowne() {
 		else {
 			proba++;
 		}
-		if (proba > 6) {
+		if (proba > 5) {
 
 			cout << wisielec_ascii[proba] << endl;
 			cout << "Przegrales! Ukrytym slowem bylo: " << ukryte_slowo << endl;
@@ -111,13 +130,11 @@ void Menu_glowne() {
 		}
 
 	}
-
-
 }
 
 
 int main(){
-  
-	Menu_glowne();
-
+	while (true) {
+		Menu_glowne();
+	}
 }
